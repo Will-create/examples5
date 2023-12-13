@@ -2,7 +2,7 @@
 
 Total.js examples optimized for Total.js v5.
 
-## reports
+### Reports
 
 - Cluster example
     - Not working in `debug` mode. only in realease mode
