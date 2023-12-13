@@ -1,0 +1,5 @@
+name							: Total.js Auth example
+
+// IMPORTANT SETTINGS:
+cookie				(generate)	: 10
+cookie_secret       (generate)  : 10
