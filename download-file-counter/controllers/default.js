@@ -9,18 +9,16 @@ exports.install = function() {
 	ROUTE('FILE /*.pdf', file_download);
 };
 
-function view_homepage() {
-	var self = this;
-	self.plain(self.req.hostname('/totaljs.pdf') + '\n\nDownload count: ' + counter);
+function view_homepage($) {
+	$.plain($.hostname('/totaljs.pdf') + '\n\nDownload count: ' + counter);
 }
 
-function file_download(req, res) {
+function file_download($) {
 
-	// this === framework
-	var filename = U.getName(req.url);
+	var filename = U.getName($.url);
 
 	counter++;
 
 	// response file
-	res.file(PATH.public(filename), filename);
+	$.file(PATH.public(filename), filename);
 }

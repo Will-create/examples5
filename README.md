@@ -26,3 +26,9 @@ Total.js examples optimized for Total.js v5.
 
 - Download-file
     - `$.image()` not working in controller
+    - `$.file(filename, [download], [header],[callback])` --> `filename` relative path to public does not work. Only absolute path is working
+
+- Download-file-counter
+    - Counter refuses to increment. 
+
+- D

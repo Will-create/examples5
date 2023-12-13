@@ -4,11 +4,11 @@ exports.install = function() {
 };
 
 function file_download($) {
-	$.file('totaljs.pdf', 'logo.pdf');
+	$.file(PATH.public('totaljs.pdf'), 'logo.pdf');
 }
 
 function image_download($) {
-	$.req.image('slovakia.jpg', function(image) {
+	$.image('slovakia.jpg', function(image) {
 		image.resize('50%');
 		image.minify();
 	});
