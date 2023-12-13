@@ -31,4 +31,5 @@ Total.js examples optimized for Total.js v5.
 - Download-file-counter
     - Counter refuses to increment. 
 
-- D
+- Download stream
+    - Error [ERR_HTTP_HEADERS_SENT]: Cannot write headers after they are sent to the client

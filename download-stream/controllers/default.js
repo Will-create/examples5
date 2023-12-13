@@ -4,7 +4,6 @@ exports.install = function() {
 	ROUTE('GET /', file_download);
 };
 
-function file_download() {
-	var self = this;
-	self.stream('application/pdf', Fs.createReadStream(F.path.public('totaljs.pdf')), 'logo.pdf');
+function file_download($) {
+	$.stream('application/pdf', Fs.createReadStream(PATH.public('totaljs.pdf')), 'logo.pdf');
 }
