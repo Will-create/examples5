@@ -20,7 +20,8 @@ exports.install = function() {
 	FILE('/dashboard/*.html', dashboard_component);
 };
 
-function notify(msg) {
+function notify($) {
+	var msg = $.params.msg;
 	var arr = FLOW.instance.instances();
 	arr.wait(function(com, next) {
 		com[msg.TYPE] && com[msg.TYPE](msg);
@@ -28,14 +29,13 @@ function notify(msg) {
 	}, 3);
 }
 
-function socket() {
+function socket($) {
 
-	var self = this;
 	var timeout;
 
-	MAIN.ws = self;
+	MAIN.ws = $;
 
-	self.autodestroy(() => MAIN.ws = null);
+	$.autodestroy(() => MAIN.ws = null);
 
 	var refreshstatus = function() {
 
@@ -50,12 +50,12 @@ function socket() {
 
 	};
 
-	self.on('open', function() {
+	$.on('open', function() {
 		timeout && clearTimeout(timeout);
 		timeout = setTimeout(refreshstatus, 1500);
 	});
 
-	self.on('message', function(client, message) {
+	$.on('message', function(client, message) {
 		switch (message.TYPE) {
 			case 'dashboard':
 			case 'status':
@@ -64,28 +64,23 @@ function socket() {
 				break;
 		}
 	});
-
 }
 
-function flow_components() {
-	var self = this;
-	self.json(FLOW.instance.components(true));
+function flow_components($) {
+	$.json(FLOW.instance.components(true));
 }
 
-function flow_save() {
-	var self = this;
-	FLOW.save(self.req.bodydata);
-	FLOW.instance.use(self.body);
-	self.success();
+function flow_save($) {
+	FLOW.save($.req.bodydata);
+	FLOW.instance.use($.body);
+	$.success();
 }
 
-function flow_read() {
-	var self = this;
-	FLOW.json(self);
+function flow_read($) {
+	FLOW.json($);
 }
 
-function dashboard_components() {
-	var self = this;
+function dashboard_components($) {
 	Fs.readdir(PATH.databases('dashboard'), function(err, response) {
 
 		var output = [];
@@ -95,32 +90,28 @@ function dashboard_components() {
 				output.push(item);
 		}
 
-		self.json(output);
+		$.json(output);
 	});
 }
 
-function dashboard_flow() {
-	var self = this;
-	self.json(FLOW.dashboard());
+function dashboard_flow($) {
+	$.json(FLOW.dashboard());
 }
 
-function dashboard_save() {
-	var self = this;
-
-	Fs.writeFile(PATH.databases('dashboard.json'), self.req.bodydata, ERROR('dashboard_save'));
-	self.success();
+function dashboard_save($) {
+	Fs.writeFile(PATH.databases('dashboard.json'), $.req.bodydata, ERROR('dashboard_save'));
+	$.success();
 }
 
-function dashboard_read() {
-	var self = this;
+function dashboard_read($) {
 	Fs.readFile(PATH.databases('dashboard.json'), function(err, response) {
 		if (response)
-			self.binary(response, 'application/json');
+			$.binary(response, 'application/json');
 		else
-			self.json([]);
+			$.json([]);
 	});
 }
 
-function dashboard_component(req, res) {
-	res.file(PATH.databases('dashboard/' + req.split[1]));
+function dashboard_component($) {
+	$.file(PATH.databases('dashboard/' + $.split[1]));
 }

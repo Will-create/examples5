@@ -1,14 +1,15 @@
 // ===================================================
-// Total.js start script
+// Total.js v5 start script
 // https://www.totaljs.com
 // ===================================================
+
+require('total5');
 
 const options = {};
 
 // options.ip = '127.0.0.1';
-// options.port = parseInt(process.argv[2]);
+options.port = parseInt(process.argv[2]) || 8000;
 // options.unixsocket = require('path').join(require('os').tmpdir(), 'app_name');
-// options.unixsocket777 = true;
 // options.config = { name: 'Total.js' };
 // options.sleep = 3000;
 // options.inspector = 9229;
@@ -26,5 +27,6 @@ const options = {};
 // options.threads = '/api/';
 // options.logs = 'isolated';
 
-var type = process.argv.indexOf('--release', 1) !== -1 || process.argv.indexOf('release', 1) !== -1 ? 'release' : 'debug';
-require('total4/' + type)(options);
+options.release = process.argv.includes('--release');
+
+F.run(options);
